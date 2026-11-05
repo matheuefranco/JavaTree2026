@@ -25,7 +25,7 @@ public class Aluno implements Comparable<Aluno> {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Aluno aluno = (Aluno) obj;
-        return matricula == aluno.matricula;
+        return this.matricula == aluno.matricula;
     }
 
     @Override

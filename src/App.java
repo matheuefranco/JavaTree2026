@@ -116,7 +116,8 @@ public class App {
                 case 2:
                     System.out.print("Digite a matrícula do aluno a ser removido: ");
                     int matriculaRemover = leia.nextInt();
-                    // Implementar a remoção do aluno na árvore
+                    Aluno alunoRemover = new Aluno("", matriculaRemover); // Criar um objeto temporário para remoção
+                    arvore.remove(alunoRemover);
                     System.out.println("Aluno removido com sucesso!");
                     break;
                 case 3:
