@@ -5,7 +5,7 @@ import java.util.*;
 
 public class App {
 
-     static void lerDadosDoArquivo(BinarySearchTree<Aluno> arvore, String nomeArquivo) {
+     static void lerDadosDoArquivo(AVLTree<Aluno> arvore, String nomeArquivo) {
         try (BufferedReader leitor = new BufferedReader(new FileReader(nomeArquivo))) {
             String linha;
 
@@ -22,8 +22,7 @@ public class App {
                     String nome = dados[1].trim();
 
                     Aluno aluno = new Aluno(nome, matricula);
-                    arvore.add(aluno); // Adapte para o método de inserção da sua árvore (ex: arvore.add(aluno) ou
-                                       // arvore.insert(aluno))
+                    arvore.add(aluno); 
                 }
             }
         } catch (IOException e) {
@@ -49,7 +48,7 @@ public class App {
 
     public static void cadastrarDadosInteiros() {
         Scanner leia = new Scanner(System.in);
-        BinarySearchTree<Integer> arvore = new BinarySearchTree<>(); // Instanciar a arvore
+        AVLTree<Integer> arvore = new AVLTree<>(); // Instanciar a arvore
         int opcao = 0;
         do {
             System.out.println("----------------------------------");
@@ -98,7 +97,7 @@ public class App {
 
     static void cadastrarDadosAlunos() {
         Scanner leia = new Scanner(System.in);
-        BinarySearchTree<Aluno> arvore = new BinarySearchTree<>(); // Instanciar a arvore
+        AVLTree<Aluno> arvore = new AVLTree<>(); // Instanciar a arvore
         int opcao = 0;
         do {
             System.out.println("----------------------------------");
