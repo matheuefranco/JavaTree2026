@@ -63,7 +63,7 @@ public class App {
                 case 2:
                     System.out.print("Digite o elemento a ser removido: ");
                     Integer elementoRemover = leia.nextInt();
-                    // Implementar a remoção do elemento na árvore
+                    arvore.remove(elementoRemover); // remover
                     System.out.println("Elemento removido com sucesso!");
                     break;
                 case 3:

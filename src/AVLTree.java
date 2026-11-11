@@ -23,6 +23,31 @@ public class AVLTree<T extends Comparable<T>> {
             return altEsq + 1;
     } // fim funcao altura
 
+     //------------------- Rotacao Simples a Direita -------------------
+    public Node<T> rotacaoDir(Node<T> raiz) {
+        Node<T> nova = raiz.esquerda;
+        raiz.esquerda = nova.direita;
+        nova.direita = raiz;
+        // atualizar fator de balanceamento
+        raiz.fb = altura(raiz.direita) - altura(raiz.esquerda);
+        nova.fb = altura(nova.direita) - altura(nova.esquerda);
+        System.out.println("Rotacao Direita -->");
+        return nova;
+    }
+
+    //------------------- Rotacao Simples a Esquerda ------------------
+    public Node<T> rotacaoEsq(Node<T> raiz) {
+        Node<T> nova = raiz.direita;
+        raiz.direita = nova.esquerda;
+        nova.esquerda = raiz;
+        // atualizar os fb
+        raiz.fb = altura(raiz.direita) - altura(raiz.esquerda);
+        nova.fb = altura(nova.direita) - altura(nova.esquerda);
+        System.out.println("Rotacao Esquerda -->");
+        return nova;
+    }
+
+
     private Node<T> add(Node<T> raiz, Node<T> novoNo) {
         if (raiz == null) {
             raiz = novoNo;
@@ -35,6 +60,24 @@ public class AVLTree<T extends Comparable<T>> {
         // Atualiza o fator de balanceamento do nó atual
         raiz.fb = altura(raiz.direita) - altura(raiz.esquerda);
         System.out.println("Fator de balanceamento do nó " + raiz.dado + ": " + raiz.fb);
+        switch(raiz.fb) {
+            case -2:
+                if (raiz.esquerda.fb <= 0) {
+                    raiz = rotacaoDir(raiz); // Rotação simples à direita
+                } else {
+                    raiz.esquerda = rotacaoEsq(raiz.esquerda); // Rotação dupla à esquerda-direita
+                    raiz = rotacaoDir(raiz);
+                }
+                break;
+            case 2:
+                if (raiz.direita.fb >= 0) {
+                    raiz = rotacaoEsq(raiz); // Rotação simples à esquerda
+                } else {
+                    raiz.direita = rotacaoDir(raiz.direita); // Rotação dupla à direita-esquerda
+                    raiz = rotacaoEsq(raiz);
+                }
+                break;
+        }
         return raiz;
     }// fim funcao inserir
 
@@ -142,6 +185,28 @@ public class AVLTree<T extends Comparable<T>> {
             raiz.esquerda = remove(raiz.esquerda, dadoRemover);
         else
             raiz.direita = remove(raiz.direita, dadoRemover);
+
+        // Atualiza o fator de balanceamento do nó atual na função remove
+         raiz.fb = altura(raiz.direita) - altura(raiz.esquerda);
+        System.out.println("Fator de balanceamento do nó " + raiz.dado + ": " + raiz.fb);
+        switch(raiz.fb) {
+            case -2:
+                if (raiz.esquerda.fb <= 0) {
+                    raiz = rotacaoDir(raiz); // Rotação simples à direita
+                } else {
+                    raiz.esquerda = rotacaoEsq(raiz.esquerda); // Rotação dupla à esquerda-direita
+                    raiz = rotacaoDir(raiz);
+                }
+                break;
+            case 2:
+                if (raiz.direita.fb >= 0) {
+                    raiz = rotacaoEsq(raiz); // Rotação simples à esquerda
+                } else {
+                    raiz.direita = rotacaoDir(raiz.direita); // Rotação dupla à direita-esquerda
+                    raiz = rotacaoEsq(raiz);
+                }
+                break;
+        }
 
         return raiz;
     } // fim buscaRemove
